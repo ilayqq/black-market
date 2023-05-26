@@ -1,8 +1,6 @@
-import React, { createContext } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import UserStore from './store/UserStore';
-import DeviceStore from './store/DeviceStore';
 import UserContext from './context';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

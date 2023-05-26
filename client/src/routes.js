@@ -5,7 +5,10 @@ import Shop from "./pages/Shop"
 import { DEVICE_ROUTE, LOGIN_ROUTE, PROFILE_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from "./utils/consts"
 
 export const authRoutes = [
-
+    {
+        path: PROFILE_ROUTE,
+        Component: Profile
+    },
 ]
 
 export const publicRoutes = [
@@ -24,9 +27,5 @@ export const publicRoutes = [
     {
         path: DEVICE_ROUTE + '/:id',
         Component: DevicePage
-    },
-    {
-        path: PROFILE_ROUTE,
-        Component: Profile
     },
 ]

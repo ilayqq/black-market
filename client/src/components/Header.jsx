@@ -1,13 +1,16 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Navbar, Offcanvas, Form, Button, Nav, Container, NavDropdown } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
-import { LOGIN_ROUTE } from '../utils/consts'
+import { BASKET_ROUTE, LOGIN_ROUTE } from '../utils/consts'
 import { context } from '../context'
+import Avatar from '@mui/joy/Avatar'
+import { SlBasket } from 'react-icons/sl'
 
 export default function Header() {
     const user = useContext(context)
     const navigate = useNavigate()
-    
+    let [basketOpen, setBasketOpen] = useState(false)
+
     const logOut = () => {
         // user.setUser({})
         user.setIsAuth(false)
@@ -46,13 +49,21 @@ export default function Header() {
                         </Form>
                         {user.isAuth ?
                             <Nav>
+                                <SlBasket style={{ position: 'relative', color: 'red', cursor: 'pointer' }} onClick={() => setBasketOpen(basketOpen = !basketOpen)} />
+                                {basketOpen && (
+                                    <div className='d-flex flex-column' style={{ position: 'absolute', top: '50px'}}>
+                                        asd
+                                        <Button variant='dark' onClick={() => navigate(BASKET_ROUTE)}>Перейти в корзину</Button>
+                                    </div>
+                                )}
+                                <Avatar variant='solid' />
                                 <NavDropdown id='nav-dropdown-dark-example' menuVariant='dark' title='dropdown'>
                                     <NavDropdown.Item onClick={() => navigate('profile')}>Profile</NavDropdown.Item>
                                     <NavDropdown.Divider />
                                     <NavDropdown.Item onClick={() => logOut()}>Выйти</NavDropdown.Item>
                                 </NavDropdown>
                             </Nav>
-                                :
+                            :
                             <Button variant='dark' onClick={() => navigate(LOGIN_ROUTE)}>Войти</Button>
                         }
                     </Offcanvas.Body>

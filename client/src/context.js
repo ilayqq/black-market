@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useInsertionEffect, useState } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 import { check } from './http/userAPI'
 import { fetchDevices } from './http/deviceAPI'
 
@@ -37,7 +37,7 @@ export default function UserContext(props) {
             userInfo,
             isAuth,
             device,
-            setIsAuth
+            setIsAuth,
         }}>
             {props.children}
         </context.Provider>

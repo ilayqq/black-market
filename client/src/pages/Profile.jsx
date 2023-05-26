@@ -3,10 +3,10 @@ import { Container } from 'react-bootstrap'
 import { context } from '../context'
 
 export default function Profile() {
-    const { user } = useContext(context)
+    const user = useContext(context)
     return (
         <Container>
-            {user._user.email}
+            {user.userInfo.email}
         </Container>
     )
 }

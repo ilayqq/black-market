@@ -1,4 +1,4 @@
-import { $authHost, $host } from ".";
+import { $host } from ".";
 import jwt_decode from 'jwt-decode';
 
 export const registration = async (email, password) => {
@@ -24,7 +24,7 @@ export const checkRole = async () => {
 }
 export const check = async (setUser) => {
     const token = localStorage.getItem('token')
-    if(token) {
+    if (token) {
         const decodedToken = jwt_decode(token)
         return decodedToken
     }
