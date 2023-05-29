@@ -10,6 +10,11 @@ export default function Header() {
     const user = useContext(context)
     const navigate = useNavigate()
     let [basketOpen, setBasketOpen] = useState(false)
+    const [theme, setTheme] = useState('light')
+
+    const toggleTheme = () => {
+        setTheme((curr) => (curr === 'light' ? 'dark' : 'light'))
+    }
 
     const logOut = () => {
         // user.setUser({})
@@ -18,9 +23,9 @@ export default function Header() {
     }
 
     return (
-        <Navbar bg="light" expand='sm'>
+        <Navbar bg='dark' expand='sm'>
             <Container fluid>
-                <Navbar.Brand href="/">Black Market</Navbar.Brand>
+                <Navbar.Brand href="/" style={{ color: 'white' }}>Black Market</Navbar.Brand>
                 <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-sm`} />
                 <Navbar.Offcanvas
                     id={`offcanvasNavbar-expand-sm`}
@@ -45,13 +50,14 @@ export default function Header() {
                                 className="me-2"
                                 aria-label="Search"
                             />
-                            <Button variant="dark">Search</Button>
+                            <Button variant='dark'>Search</Button>
                         </Form>
+                        <Button variant='dark' onClick={toggleTheme} style={{ cursor: 'pointer' }}>dark mode</Button>
                         {user.isAuth ?
                             <Nav>
                                 <SlBasket style={{ position: 'relative', color: 'red', cursor: 'pointer' }} onClick={() => setBasketOpen(basketOpen = !basketOpen)} />
                                 {basketOpen && (
-                                    <div className='d-flex flex-column' style={{ position: 'absolute', top: '50px'}}>
+                                    <div className='d-flex flex-column' style={{ position: 'absolute', top: '50px' }}>
                                         asd
                                         <Button variant='dark' onClick={() => navigate(BASKET_ROUTE)}>Перейти в корзину</Button>
                                     </div>

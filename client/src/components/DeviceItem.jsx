@@ -1,16 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import star from '../assets/star.png';
 import { useNavigate } from 'react-router-dom';
 import { DEVICE_ROUTE } from '../utils/consts';
 import { Card, Col, Row } from 'react-bootstrap';
 import Image from 'react-bootstrap/Image';
-import { context } from '../context';
 
 export default function DeviceItem({ device }) {
     const navigate = useNavigate()
-    const basket = useContext(context)
-    console.log(basket.basket)
-
     return (
         <Row className='d-inline-block m-3'>
             <Col md={3} className='mt-3'>

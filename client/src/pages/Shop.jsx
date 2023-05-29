@@ -4,7 +4,6 @@ import { context } from '../context.js';
 
 export default function Shop() {
   const device = useContext(context)
-
   return (
     <div>
       {device.device?.map(device =>
