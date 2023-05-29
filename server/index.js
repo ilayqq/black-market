@@ -16,6 +16,10 @@ app.use(express.static(path.resolve(__dirname, 'static')))
 app.use(fileUpload({}))
 app.use('/api', router)
 
+app.get('/', (req, res) => {
+    res.sendFile('index.html')
+})
+
 const start = async () => {
     try {
         await mongoose.connect(process.env.DB_URL, {
