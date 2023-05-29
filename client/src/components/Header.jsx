@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { Navbar, Offcanvas, Form, Button, Nav, Container, NavDropdown } from 'react-bootstrap'
-import { useNavigate } from 'react-router-dom'
-import { BASKET_ROUTE, LOGIN_ROUTE } from '../utils/consts'
+import { Link, useNavigate } from 'react-router-dom'
+import { BASKET_ROUTE, LOGIN_ROUTE, SHOP_ROUTE } from '../utils/consts'
 import { context } from '../context'
 import Avatar from '@mui/joy/Avatar'
 import { SlBasket } from 'react-icons/sl'
@@ -10,11 +10,6 @@ export default function Header() {
     const user = useContext(context)
     const navigate = useNavigate()
     let [basketOpen, setBasketOpen] = useState(false)
-    const [theme, setTheme] = useState('light')
-
-    const toggleTheme = () => {
-        setTheme((curr) => (curr === 'light' ? 'dark' : 'light'))
-    }
 
     const logOut = () => {
         // user.setUser({})
@@ -23,9 +18,9 @@ export default function Header() {
     }
 
     return (
-        <Navbar bg='dark' expand='sm'>
+        <Navbar bg='light' expand='sm'>
             <Container fluid>
-                <Navbar.Brand href="/" style={{ color: 'white' }}>Black Market</Navbar.Brand>
+                <Navbar.Brand as={Link} to={SHOP_ROUTE}>Black Market</Navbar.Brand>
                 <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-sm`} />
                 <Navbar.Offcanvas
                     id={`offcanvasNavbar-expand-sm`}
@@ -52,10 +47,9 @@ export default function Header() {
                             />
                             <Button variant='dark'>Search</Button>
                         </Form>
-                        <Button variant='dark' onClick={toggleTheme} style={{ cursor: 'pointer' }}>dark mode</Button>
                         {user.isAuth ?
                             <Nav>
-                                <SlBasket style={{ position: 'relative', color: 'red', cursor: 'pointer' }} onClick={() => setBasketOpen(basketOpen = !basketOpen)} />
+                                <SlBasket style={{ position: 'relative', color: 'red', cursor: 'pointer' }} onClick={() => setBasketOpen(!basketOpen)} />
                                 {basketOpen && (
                                     <div className='d-flex flex-column' style={{ position: 'absolute', top: '50px' }}>
                                         asd
@@ -63,7 +57,7 @@ export default function Header() {
                                     </div>
                                 )}
                                 <Avatar variant='solid' />
-                                <NavDropdown id='nav-dropdown-dark-example' menuVariant='dark' title='dropdown'>
+                                <NavDropdown id='nav-dropdown-dark-example' menuVariant='dark' title={user.userInfo.email}>
                                     <NavDropdown.Item onClick={() => navigate('profile')}>Profile</NavDropdown.Item>
                                     <NavDropdown.Divider />
                                     <NavDropdown.Item onClick={() => logOut()}>Выйти</NavDropdown.Item>
