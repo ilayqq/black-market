@@ -5,7 +5,7 @@ import { DEVICE_ROUTE } from '../utils/consts';
 import { Card, Col, Row } from 'react-bootstrap';
 import Image from 'react-bootstrap/Image';
 
-export default function DeviceItem({ device }) {
+export default function DeviceItem({ device, addToBasket }) {
     const navigate = useNavigate()
     return (
         <Row className='d-inline-block m-3'>
@@ -18,7 +18,7 @@ export default function DeviceItem({ device }) {
                     </div>
                     <div className='d-flex align-items-center justify-content-between'>
                         <div>{device.rating}<Image width={18} height={18} src={star} /></div>
-                        <div style={{ cursor: 'pointer' }} >+</div>
+                        <div style={{ cursor: 'pointer' }} onClick={() => addToBasket(device)}>+</div>
                     </div>
                 </Card>
             </Col>

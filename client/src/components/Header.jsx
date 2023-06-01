@@ -1,18 +1,22 @@
 import React, { useContext, useState } from 'react'
 import { Navbar, Offcanvas, Form, Button, Nav, Container, NavDropdown } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
-import { BASKET_ROUTE, LOGIN_ROUTE, SHOP_ROUTE } from '../utils/consts'
+import { ADMIN_ROUTE, BASKET_ROUTE, LOGIN_ROUTE, SHOP_ROUTE } from '../utils/consts'
 import { context } from '../context'
 import Avatar from '@mui/joy/Avatar'
 import { SlBasket } from 'react-icons/sl'
+import { checkRole } from '../http/userAPI'
 
 export default function Header() {
     const user = useContext(context)
     const navigate = useNavigate()
-    let [basketOpen, setBasketOpen] = useState(false)
+    const [basketOpen, setBasketOpen] = useState(false)
+
+    const role = () => {
+        return checkRole()
+    }
 
     const logOut = () => {
-        // user.setUser({})
         user.setIsAuth(false)
         localStorage.removeItem('token')
     }
@@ -49,7 +53,7 @@ export default function Header() {
                         </Form>
                         {user.isAuth ?
                             <Nav>
-                                <SlBasket style={{ position: 'relative', color: 'red', cursor: 'pointer' }} onClick={() => setBasketOpen(!basketOpen)} />
+                                <SlBasket style={{ position: 'relative', color: 'black', cursor: 'pointer' }} onClick={() => setBasketOpen(!basketOpen)} />
                                 {basketOpen && (
                                     <div className='d-flex flex-column' style={{ position: 'absolute', top: '50px' }}>
                                         asd
@@ -59,6 +63,9 @@ export default function Header() {
                                 <Avatar variant='solid' />
                                 <NavDropdown id='nav-dropdown-dark-example' menuVariant='dark' title={user.userInfo.email}>
                                     <NavDropdown.Item onClick={() => navigate('profile')}>Profile</NavDropdown.Item>
+                                    {role() && (
+                                        <NavDropdown.Item variant='dark' onClick={() => navigate(ADMIN_ROUTE)}>Admin</NavDropdown.Item>
+                                    )}
                                     <NavDropdown.Divider />
                                     <NavDropdown.Item onClick={() => logOut()}>Выйти</NavDropdown.Item>
                                 </NavDropdown>

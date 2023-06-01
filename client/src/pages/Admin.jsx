@@ -7,6 +7,13 @@ export default function Admin() {
   const user = useContext(context)
   const [deviceVisible, setDeviceVisible] = useState(false)
 
+  // const updateUserRole = (newRole) => {
+  //   const updateUser = jwtDecode(localStorage.getItem('token'))
+  //   updateUser.role = newRole
+  //   localStorage.setItem('token', updateUser)
+  //   console.log(localStorage.getItem('token'))
+  // }
+
   return (
     <Container>
       <Button variant='outline-dark' className="mt-4 p-2" onClick={() => setDeviceVisible(true)}>Добавить устройство</Button>
