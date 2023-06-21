@@ -8,6 +8,7 @@ export default function UserContext(props) {
     const [userInfo, setUserInfo] = useState(null)
     const [isAuth, setIsAuth] = useState(false)
     const [device, setDevice] = useState(null)
+    const [basket, setBasket] = useState([])
 
     const fetchUser = async () => {
         const userData = await check()
@@ -38,6 +39,8 @@ export default function UserContext(props) {
             isAuth,
             device,
             setIsAuth,
+            basket,
+            setBasket,
         }}>
             {props.children}
         </context.Provider>

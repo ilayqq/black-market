@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { fetchOneDevice } from '../http/deviceAPI'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { Button, Card, Col, Container, Image, Row } from 'react-bootstrap'
 import star from '../assets/star.png';
+import { BASKET_ROUTE } from '../utils/consts';
+import { context } from '../context';
 
 export default function DevicePage() {
+    const deviceContext = useContext(context)
     const [device, setDevice] = useState({ info: [] })
     const { id } = useParams()
 
@@ -12,6 +15,10 @@ export default function DevicePage() {
         fetchOneDevice(id).then(data => setDevice(data))
     }, [])
 
+    const addToBasket = (device) => {
+        deviceContext.setBasket((prevBasket) => [...prevBasket, device])
+    }
+    console.log(device)
     return (
         <div style={{ width: '100%' }}>
             <Container className='d-flex p-3'>
@@ -20,8 +27,8 @@ export default function DevicePage() {
                     <p>rating: {device.rating}<Image width={18} height={18} src={star} /></p>
                     <Image width={300} height={300} src={'http://localhost:5000/' + device.img} />
                     <Col className='d-flex justify-content-between'>
-                        {device.price}
-                        <Button variant='dark'>Добавить в корзину</Button>
+                        {device.price} тенге.
+                        <Button variant='dark' as={Link} to={BASKET_ROUTE} onClick={() => addToBasket(device)}>Добавить в корзину</Button>
                     </Col>
                 </Card>
                 <Row className='d-flex flex-column m-3'>
@@ -29,11 +36,6 @@ export default function DevicePage() {
                     <Row key={device.id} style={{ background: device % 2 === 0 ? 'lightgray' : 'transparent', padding: 10 }}>
                         {device.title}: {device.description}
                     </Row>
-                    {/* {device.description.map((info, index) =>
-                            <Row key={info.id} style={{ background: index % 2 === 0 ? 'lightgray' : 'transparent', padding: 10 }}>
-                                {info.title}: {info.description}
-                            </Row>
-                        )} */}
                 </Row>
             </Container>
         </div>

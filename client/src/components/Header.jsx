@@ -6,8 +6,9 @@ import { context } from '../context'
 import Avatar from '@mui/joy/Avatar'
 import { SlBasket } from 'react-icons/sl'
 import { checkRole } from '../http/userAPI'
+import BasketItem from './BasketItem'
 
-export default function Header() {
+export default function Header({ basket }) {
     const user = useContext(context)
     const navigate = useNavigate()
     const [basketOpen, setBasketOpen] = useState(false)
@@ -42,7 +43,7 @@ export default function Header() {
                             <Nav.Link href="">Link</Nav.Link>
                             <Nav.Link>Profile</Nav.Link>
                         </Nav>
-                        <Form className="d-flex">
+                        {/* <Form className="d-flex">
                             <Form.Control
                                 type="search"
                                 placeholder="Search"
@@ -50,13 +51,23 @@ export default function Header() {
                                 aria-label="Search"
                             />
                             <Button variant='dark'>Search</Button>
-                        </Form>
+                        </Form> */}
                         {user.isAuth ?
                             <Nav>
-                                <SlBasket style={{ position: 'relative', color: 'black', cursor: 'pointer' }} onClick={() => setBasketOpen(!basketOpen)} />
+                                <SlBasket style={{ position: 'relative', color: 'black', cursor: 'pointer', top: '10px' }} onClick={() => setBasketOpen(!basketOpen)} />
                                 {basketOpen && (
-                                    <div className='d-flex flex-column' style={{ position: 'absolute', top: '50px' }}>
-                                        asd
+                                    <div className='d-flex flex-column' style={{ position: 'absolute', top: '60px', right: 0, width: '450px', minHeight: '100px', zIndex: 1000, backgroundColor: 'white' }}>
+                                        {user.basket.length > 0 ?
+                                            <div>
+                                                {user.basket.map((device, index) =>
+                                                    <BasketItem key={index} device={device} />
+                                                )}
+                                            </div>
+                                            :
+                                            <div>
+                                                <h2 style={{ fontSize: '20px' }}>Пусто...</h2>
+                                            </div>
+                                        }
                                         <Button variant='dark' onClick={() => navigate(BASKET_ROUTE)}>Перейти в корзину</Button>
                                     </div>
                                 )}
